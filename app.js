@@ -19,7 +19,7 @@ app.engine('html', ejs.renderFile);
 ///////////////////////////////////////////////////////////////////////////////
 //default route
 app.get('/', function(req, res) {
-  res.render('index.html', { latitude: 35.658, longitude: 34.2547});
+  res.render('index.html', { latitude: 42.2, longitude: 51.4, latitudes: [43.4, 41.5, 43.5], longitudes: [51.6, 50.7, 52.5] });
 });
 
   
