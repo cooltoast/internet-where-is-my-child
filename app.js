@@ -2,9 +2,6 @@ var express = require("express");
 var ejs = require("ejs");
 var app = express();
 
-var latitudes = [43.4, 41.5, 43.5, 24]
-var longitudes = [51.6, 50.7, 52.5, 45]
-
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('coordinates.db');
 
@@ -31,12 +28,17 @@ app.get('/', function(req, res) {
 
    res.render('index.html', { items: items });
   });
-
-
-
-
-  //res.render('index.html', { latitude: latitudes[latitudes.length - 1], longitude: longitudes[longitudes.length - 1], latitudes: latitudes, longitudes: longitudes });
 });
+
+app.get('/submit_coordinates', function(req, res) {
+  var latitude = req.query['latitude'];
+  var longitude = req.query['longitude'];
+  var timestamp = req.query['timestamp'];
+  db.run('INSERT INTO coordinate_table VALUES (' + latitude + "," + longitude + ',"' + timestamp + '")');
+  
+  res.redirect('/');
+});
+
 
   
 //////////////////////////////////////////////////////////////////////////////
