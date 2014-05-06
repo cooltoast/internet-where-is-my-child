@@ -14,15 +14,15 @@
       function initialize() {
 
         var mapOptions = {
-          center: new google.maps.LatLng(<%=latitude%>, <%=longitude%>),
+          center: new google.maps.LatLng(<%=items[items.length - 1].latitude%>, <%=items[items.length - 1].longitude%>),
           zoom: 8
         };
         var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
         //marker
-        <% for (var i = 0; i < latitudes.length; i++) { %>
+        <% for (var i = 0; i < items.length; i++) { %>
 
-          var myLatlng = new google.maps.LatLng(<%=latitudes[i]%>, <%=longitudes[i]%>);
+          var myLatlng = new google.maps.LatLng(<%=items[i].latitude%>, <%=items[i].longitude%>);
           var mapOptions = {
             zoom: 4,
             center: myLatlng
@@ -32,7 +32,7 @@
           var marker = new google.maps.Marker({
               position: myLatlng,
               map: map,
-              title: "child was here"
+              title: "<%= items[i].timestamp %>"
           });
 
         <% } %>
