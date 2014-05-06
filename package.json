@@ -4,6 +4,7 @@
   "description": "find your child",
   "main": "app.js",
   "dependencies": {
+    "pg": "2.x",
     "express": "3.x",
     "ejs": "0.8.x"
   },
