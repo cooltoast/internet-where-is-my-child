@@ -19,6 +19,7 @@ app.engine('html', ejs.renderFile);
 //default route
 app.get('/', function(req, res) {
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    console.log(err);
     client.query('SELECT * FROM coordinate_table', function(err, items) {
       if(err) return console.error(err);
       console.log(items.rows);
