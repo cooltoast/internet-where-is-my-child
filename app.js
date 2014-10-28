@@ -44,6 +44,26 @@ app.get('/submit_coordinates', function(req, res) {
   });
 });
 
+app.get('/last_coordinate', function(req, res) {
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    console.log(err);
+    client.query('SELECT * FROM coordinate_table', function(err, items) {
+      if(err) return console.error(err);
+      console.log(items.rows);
+
+      res.contentType('application/json');
+      var last = items[items.length - 1];
+      var lastCoord = {
+        latitude: last.latitude,
+        longitude: last.longitude
+      }
+      //var lastCoordJSON = JSON.stringify(lastCoord);
+
+      res.json(lastCoord);
+    });
+  });
+});
+
 
   
 //////////////////////////////////////////////////////////////////////////////
