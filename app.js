@@ -50,8 +50,12 @@ app.get('/last_coordinate', function(req, res) {
     client.query('SELECT * FROM coordinate_table ORDER BY timestamp DESC LIMIT 1', function(err, item) {
       if(err) return console.error(err);
       console.log(item);
-      res.send(item);
-      //done();
+
+      var lat = item["rows"][0]["latitude"];
+      var lon = item["rows"][0]["longitude"];
+
+      var resp = lat + "," + lon;
+      res.send(resp);
     });
   });
 });
