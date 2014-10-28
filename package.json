@@ -1,7 +1,6 @@
 {
   "name": "where-is-my-child",
   "version": "0.0.0",
-  "private":true,
   "description": "find your child",
   "main": "app.js",
   "dependencies": {
