@@ -10,29 +10,33 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="./keys.js"></script>
     <script src="./googlemaps.js"></script>
+    <script src="./coordinates.js"></script>
     <script type="text/javascript">
      let map;
 
      async function initMap() {
-       const position = {
-         lat: 40,
-         lng: -74,
-       };
-
        //@ts-ignore
        const { Map } = await google.maps.importLibrary("maps");
        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+       const { LatLngBounds } = await google.maps.importLibrary("core")
 
        map = new Map(document.getElementById("map"), {
-         zoom: 4,
-         center: position,
          mapId: "where-is-my-child",
        });
 
-       const marker = new AdvancedMarkerElement({
-         map: map,
-         position: position,
+       const bounds = new LatLngBounds();
+
+       coordinates.map(([lat, lng], index) => {
+         bounds.extend({lat, lng});
+
+         return new AdvancedMarkerElement({
+           map,
+           position: {lat, lng},
+           // icon: index == (coordinates.length - 1) ? 'static/images/green-dot.png' : 'static/images/red-dot.png',
+         });
        });
+
+       map.fitBounds(bounds);
      }
 
      initMap();
