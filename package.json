@@ -1,13 +1,13 @@
 {
   "name": "where-is-my-child",
   "version": "0.0.0",
-  "private":true,
+  "private": true,
   "description": "find your child",
   "main": "app.js",
   "dependencies": {
-    "pg": "2.x",
+    "ejs": "^3.1.9",
     "express": "3.x",
-    "ejs": "0.8.x"
+    "pg": "2.x"
   },
   "engines": {
     "node": "0.10.x"

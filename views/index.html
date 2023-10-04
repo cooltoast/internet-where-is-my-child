@@ -5,54 +5,79 @@
     <style type="text/css">
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0 }
-      #map-canvas { height: 100% }
+      #map { height: 100% }
     </style>
-    <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoIVV4WvpgEH5ST-lvGncNkbrSO8nTzIE&sensor=false">
-    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="./keys.js"></script>
+    <script src="./googlemaps.js"></script>
     <script type="text/javascript">
-      function initialize() {
+     let map;
 
-        var mapOptions = {
-          <% if (items.length === 0) { %>
-            center: new google.maps.LatLng(40, -74),
-            zoom: 5
-          <% } else { %>
-            center: new google.maps.LatLng(<%=items[items.length - 1].latitude%>, <%=items[items.length - 1].longitude%>),
-            zoom: 12
-          <% } %>    
-        };
-        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+     async function initMap() {
+       const position = {
+         lat: 40,
+         lng: -74,
+       };
 
-        //marker
-        <% for (var i = 0; i < items.length; i++) { %>
+       //@ts-ignore
+       const { Map } = await google.maps.importLibrary("maps");
+       const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
-          var myLatlng = new google.maps.LatLng(<%=items[i].latitude%>, <%=items[i].longitude%>);
-          var mapOptions = {
-            zoom: 12,
-            center: myLatlng
-          }
+       map = new Map(document.getElementById("map"), {
+         zoom: 4,
+         center: position,
+         mapId: "where-is-my-child",
+       });
 
-          <% if (i === items.length - 1) { %>
-            var image = 'static/images/green-dot.png';
-          <% } else { %>
-            var image = 'static/images/red-dot.png';
-          <% } %>
+       const marker = new AdvancedMarkerElement({
+         map: map,
+         position: position,
+       });
+     }
 
-          // To add the marker to the map, use the 'map' property
-          var marker = new google.maps.Marker({
-              position: myLatlng,
-              map: map,
-              icon: image,
-              title: "<%= items[i].timestamp %>"              
-          });
+     initMap();
 
-        <% } %>
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
+     /* function initialize() {
+
+      *   var mapOptions = {
+      *     <% if (items.length === 0) { %>
+      *       center: new google.maps.LatLng(40, -74),
+      *       zoom: 5
+      *     <% } else { %>
+      *       center: new google.maps.LatLng(<%=items[items.length - 1].latitude%>, <%=items[items.length - 1].longitude%>),
+      *       zoom: 12
+      *     <% } %>
+      *   };
+      *   var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+      *   //marker
+      *   <% for (var i = 0; i < items.length; i++) { %>
+
+      *     var myLatlng = new google.maps.LatLng(<%=items[i].latitude%>, <%=items[i].longitude%>);
+      *     var mapOptions = {
+      *       zoom: 12,
+      *       center: myLatlng
+      *     }
+
+      *     <% if (i === items.length - 1) { %>
+      *       var image = 'static/images/green-dot.png';
+      *     <% } else { %>
+      *       var image = 'static/images/red-dot.png';
+      *     <% } %>
+
+      *     // To add the marker to the map, use the 'map' property
+      *     var marker = new google.maps.Marker({
+      *         position: myLatlng,
+      *         map: map,
+      *         icon: image,
+      *         title: "<%= items[i].timestamp %>"
+      *     });
+
+      *   <% } %>
+      * } */
     </script>
   </head>
   <body>
-    <div id="map-canvas"/>
+    <div id="map" />
   </body>
 </html>
