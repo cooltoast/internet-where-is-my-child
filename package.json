@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "npm install",
-    "dev": "npx wrangler pages dev views --d1=DB"
+    "dev": "npx wrangler pages dev views --d1=DB",
+    "bootstrap-db": "npx wrangler d1 execute where-is-my-child --local --file bootstrap.sql"
   },
   "devDependencies": {
     "wrangler": "^3.11.0"
