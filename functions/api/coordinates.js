@@ -1,11 +1,10 @@
-import coordinates from './coordinate_data';
+export async function onRequestGet(context) {
+  const resp = await context.env.DB.prepare("SELECT * FROM coordinate").all();
+  const data = resp.results;
 
-
-export function onRequestGet(context) {
-  // TODO: Select from database
   return Response.json({
     status: 200,
-    length: coordinates.length,
-    data: coordinates,
+    length: data.length,
+    data,
   });
 };

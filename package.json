@@ -7,13 +7,14 @@
   "dependencies": {
     "ejs": "^3.1.9",
     "express": "3.x",
+    "joi": "^17.11.0",
     "pg": "2.x"
   },
   "engines": {
     "node": ">16.x"
   },
   "scripts": {
-    "dev": "npx wrangler pages dev views"
+    "dev": "npx wrangler pages dev views --d1=DB"
   },
   "devDependencies": {
     "wrangler": "^3.11.0"

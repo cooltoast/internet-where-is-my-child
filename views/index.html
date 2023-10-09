@@ -27,12 +27,12 @@
        const coordinates_resp = await fetch('/api/coordinates')
        const coordinates = await coordinates_resp.json()
 
-       coordinates.data.map(([lat, lng], index) => {
-         bounds.extend({lat, lng});
+       coordinates.data.map((coordinate, index) => {
+         bounds.extend(coordinate);
 
          return new AdvancedMarkerElement({
            map,
-           position: {lat, lng},
+           position: coordinate,
            // icon: index == (coordinates.length - 1) ? 'static/images/green-dot.png' : 'static/images/red-dot.png',
          });
        });
