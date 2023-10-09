@@ -10,15 +10,13 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="./keys.js"></script>
     <script src="./googlemaps.js"></script>
-    <script src="./coordinates.js"></script>
     <script type="text/javascript">
      let map;
 
      async function initMap() {
-       //@ts-ignore
        const { Map } = await google.maps.importLibrary("maps");
        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-       const { LatLngBounds } = await google.maps.importLibrary("core")
+       const { LatLngBounds } = await google.maps.importLibrary("core");
 
        map = new Map(document.getElementById("map"), {
          mapId: "where-is-my-child",
@@ -26,7 +24,10 @@
 
        const bounds = new LatLngBounds();
 
-       coordinates.map(([lat, lng], index) => {
+       const coordinates_resp = await fetch('/api/coordinates')
+       const coordinates = await coordinates_resp.json()
+
+       coordinates.data.map(([lat, lng], index) => {
          bounds.extend({lat, lng});
 
          return new AdvancedMarkerElement({
@@ -40,45 +41,6 @@
      }
 
      initMap();
-
-     /* function initialize() {
-
-      *   var mapOptions = {
-      *     <% if (items.length === 0) { %>
-      *       center: new google.maps.LatLng(40, -74),
-      *       zoom: 5
-      *     <% } else { %>
-      *       center: new google.maps.LatLng(<%=items[items.length - 1].latitude%>, <%=items[items.length - 1].longitude%>),
-      *       zoom: 12
-      *     <% } %>
-      *   };
-      *   var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-      *   //marker
-      *   <% for (var i = 0; i < items.length; i++) { %>
-
-      *     var myLatlng = new google.maps.LatLng(<%=items[i].latitude%>, <%=items[i].longitude%>);
-      *     var mapOptions = {
-      *       zoom: 12,
-      *       center: myLatlng
-      *     }
-
-      *     <% if (i === items.length - 1) { %>
-      *       var image = 'static/images/green-dot.png';
-      *     <% } else { %>
-      *       var image = 'static/images/red-dot.png';
-      *     <% } %>
-
-      *     // To add the marker to the map, use the 'map' property
-      *     var marker = new google.maps.Marker({
-      *         position: myLatlng,
-      *         map: map,
-      *         icon: image,
-      *         title: "<%= items[i].timestamp %>"
-      *     });
-
-      *   <% } %>
-      * } */
     </script>
   </head>
   <body>
