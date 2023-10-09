@@ -1,5 +1,6 @@
 export async function onRequestGet(context) {
-  const resp = await context.env.DB.prepare("SELECT * FROM coordinate").all();
+  // retrieve in east-to-west order
+  const resp = await context.env.DB.prepare("SELECT * FROM coordinate ORDER BY lng DESC").all();
   const data = resp.results;
 
   return Response.json({
