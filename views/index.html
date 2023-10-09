@@ -11,11 +11,13 @@
     <script src="./keys.js"></script>
     <script src="./googlemaps.js"></script>
     <script type="text/javascript">
+     const GREEN = "#68c53f";
+     const DARK_GREEN = "#2f591b";
      let map;
 
      async function initMap() {
        const { Map } = await google.maps.importLibrary("maps");
-       const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+       const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
        const { LatLngBounds } = await google.maps.importLibrary("core");
 
        map = new Map(document.getElementById("map"), {
@@ -30,11 +32,23 @@
        coordinates.data.map((coordinate, index) => {
          bounds.extend(coordinate);
 
-         return new AdvancedMarkerElement({
+         let options = {
            map,
            position: coordinate,
-           // icon: index == (coordinates.length - 1) ? 'static/images/green-dot.png' : 'static/images/red-dot.png',
-         });
+           title: coordinate.lat + ", " + coordinate.lng,
+         };
+
+         if (index == coordinates.length - 1) {
+           const pinBackground = new PinElement({
+             background: GREEN,
+             glyphColor: DARK_GREEN,
+             borderColor: DARK_GREEN,
+           });
+
+           options.content = pinBackground.element;
+         }
+
+         return new AdvancedMarkerElement(options);
        });
 
        map.fitBounds(bounds);
