@@ -26,8 +26,8 @@
 
        const bounds = new LatLngBounds();
 
-       const coordinates_resp = await fetch('/api/coordinates')
-       const coordinates = await coordinates_resp.json()
+       const coordinatesResp = await fetch('/api/coordinates')
+       const coordinates = await coordinatesResp.json()
 
        coordinates.data.map((coordinate, index) => {
          bounds.extend(coordinate);

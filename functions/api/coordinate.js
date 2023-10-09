@@ -1,4 +1,4 @@
-import validate from './schema';
+import validate from '../util/schema';
 
 
 export async function onRequestPost(context) {
