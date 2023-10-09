@@ -12,6 +12,9 @@
   "engines": {
     "node": ">16.x"
   },
+  "scripts": {
+    "dev": "npx wrangler pages dev views"
+  },
   "devDependencies": {
     "wrangler": "^3.11.0"
   }
