@@ -5,8 +5,8 @@ const schema = Joi.object({
   lng: Joi.number().required(),
 });
 
-export { schema };
-
-export default function validate(obj) {
+function validate(obj) {
   Joi.assert(obj, schema);
 }
+
+export { schema, validate };
