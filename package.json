@@ -1,15 +1,17 @@
 {
   "name": "where-is-my-child",
-  "version": "0.0.0",
-  "private":true,
+  "version": "0.1.0",
+  "private": true,
   "description": "find your child",
-  "main": "app.js",
   "dependencies": {
-    "pg": "2.x",
-    "express": "3.x",
-    "ejs": "0.8.x"
+    "joi": "^17.11.0"
   },
-  "engines": {
-    "node": "0.10.x"
+  "scripts": {
+    "build": "npm install",
+    "dev": "npx wrangler pages dev views --d1=DB",
+    "bootstrap-db": "npx wrangler d1 execute where-is-my-child --local --file bootstrap.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^3.11.0"
   }
 }

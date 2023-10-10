@@ -1,0 +1,7 @@
+compatibility_flags = [ "nodejs_compat" ]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "where-is-my-child"
+database_id = "f4870921-c78d-4d32-a286-4d067f7e259a"
+preview_database_id = "DB"
