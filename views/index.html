@@ -1,61 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <style type="text/css">
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      #map { height: 100% }
+      html {
+        height: 100%;
+      }
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
     </style>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="./keys.js"></script>
     <script src="./googlemaps.js"></script>
-    <script type="text/javascript">
-     const GREEN = "#68c53f";
-     const DARK_GREEN = "#2f591b";
-     let map;
-
-     async function initMap() {
-       const { Map } = await google.maps.importLibrary("maps");
-       const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker");
-       const { LatLngBounds } = await google.maps.importLibrary("core");
-
-       map = new Map(document.getElementById("map"), {
-         mapId: "where-is-my-child",
-       });
-
-       const bounds = new LatLngBounds();
-
-       const coordinatesResp = await fetch('/api/coordinates')
-       const coordinates = await coordinatesResp.json()
-
-       coordinates.data.map((coordinate, index) => {
-         bounds.extend(coordinate);
-
-         let options = {
-           map,
-           position: coordinate,
-           title: coordinate.lat + ", " + coordinate.lng,
-         };
-
-         if (index == coordinates.length - 1) {
-           const pinBackground = new PinElement({
-             background: GREEN,
-             glyphColor: DARK_GREEN,
-             borderColor: DARK_GREEN,
-           });
-
-           options.content = pinBackground.element;
-         }
-
-         return new AdvancedMarkerElement(options);
-       });
-
-       map.fitBounds(bounds);
-     }
-
-     initMap();
-    </script>
+    <script src="./coordinates.js"></script>
   </head>
   <body>
     <div id="map" />

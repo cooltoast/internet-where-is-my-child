@@ -6,7 +6,4 @@ function formatApiResponse(data) {
   });
 }
 
-
-export {
-  formatApiResponse
-}
+export { formatApiResponse };

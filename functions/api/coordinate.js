@@ -1,5 +1,4 @@
-import validate from '../util/schema';
-
+import validate from "../util/schema";
 
 export async function onRequestPost(context) {
   const body = await context.request.json();
@@ -7,9 +6,9 @@ export async function onRequestPost(context) {
   try {
     validate(body);
 
-    const info = await context.env.DB.prepare('INSERT INTO coordinate (lat, lng) VALUES (?1, ?2)')
-          .bind(body.lat, body.lng)
-          .run();
+    const info = await context.env.DB.prepare("INSERT INTO coordinate (lat, lng) VALUES (?1, ?2)")
+      .bind(body.lat, body.lng)
+      .run();
   } catch (e) {
     return new Response(e, {
       status: 400,
@@ -20,4 +19,4 @@ export async function onRequestPost(context) {
     status: 200,
     message: "OK",
   });
-};
+}
